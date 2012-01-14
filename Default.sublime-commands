@@ -1,0 +1,6 @@
+[
+    {
+        "caption": "Minify Javascript",
+        "command": "minify"
+    }
+]
