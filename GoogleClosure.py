@@ -3,7 +3,7 @@ from GoogleClosureCall import GoogleClosureCall
 
 class Minify(sublime_plugin.TextCommand):
     def run(self, edit):
-        print edit
+
         selections = self.view.sel()
 
         # check if the user has any actual selections
@@ -16,7 +16,6 @@ class Minify(sublime_plugin.TextCommand):
         if not has_selections:
             full_region = sublime.Region(0, self.view.size())
             selections.add(full_region)
-
 
         threads = []
         for sel in selections:
@@ -65,6 +64,8 @@ class Minify(sublime_plugin.TextCommand):
         sel = thread.sel
         original = thread.original
         result = thread.result
+
+        editgroup = self.view.begin_edit('minify')
 
         if offset:
             sel = sublime.Region(sel.begin() + offset, sel.end() + offset)

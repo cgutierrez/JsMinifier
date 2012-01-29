@@ -4,6 +4,7 @@ import urllib2
 import threading
 
 class GoogleClosureCall(threading.Thread):
+
     def __init__(self, sel, string, timeout):
         self.sel = sel
         self.original = string
@@ -12,6 +13,7 @@ class GoogleClosureCall(threading.Thread):
         threading.Thread.__init__(self)
 
     def run(self):
+
         try:
             data = urllib.urlencode({
                 'js_code': self.original,
