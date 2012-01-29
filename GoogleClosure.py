@@ -25,7 +25,6 @@ class Minify(sublime_plugin.TextCommand):
             thread.start()
 
         selections.clear()
-        editgroup = self.view.begin_edit('minify')
         self.handle_threads(edit, threads, selections, offset = 0, i = 0, dir = 1)
 
     def handle_threads(self, edit, threads, selections, offset = 0, i = 0, dir = 1):
