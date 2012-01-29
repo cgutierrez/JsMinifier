@@ -65,7 +65,7 @@ class Minify(sublime_plugin.TextCommand):
         result = thread.result
 
         if result is None:
-            print 'show the error'
+            sublime.error_message("There was an error minifying the Javascript.")
             return
 
         editgroup = self.view.begin_edit('minify')
