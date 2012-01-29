@@ -23,7 +23,12 @@ class GoogleClosureCall(threading.Thread):
             ua = 'Sublime Text - Google Closure'
             req = urllib2.Request("http://closure-compiler.appspot.com/compile", data, headers = { 'User-Agent': ua })
             file = urllib2.urlopen(req, timeout = self.timeout)
-            self.result = file.read()
+
+            mini_content = file.read().strip()
+
+            if len(mini_content) > 0:
+                self.result = mini_content
+
             return
         except (urllib2.HTTPError) as (e):
             err = '%s: HTTP error %s contacting API' % (__name__, str(e.code))
@@ -31,4 +36,3 @@ class GoogleClosureCall(threading.Thread):
             err = '%s: URL error %s contacting API' % (__name__, str(e.code))
 
         sublime.error_message(err)
-        self.result = False

@@ -64,6 +64,10 @@ class Minify(sublime_plugin.TextCommand):
         original = thread.original
         result = thread.result
 
+        if result is None:
+            print 'show the error'
+            return
+
         editgroup = self.view.begin_edit('minify')
 
         if offset:
