@@ -1,10 +1,14 @@
-import sublime, sublime_plugin
+import sublime
+import sublime_plugin
+
 from GoogleClosureCall import GoogleClosureCall
 
 class Minify(sublime_plugin.TextCommand):
+
     def run(self, edit):
 
         selections = self.view.sel()
+        settings = sublime.load_settings("Minifier.sublime-settings")
 
         # check if the user has any actual selections
         has_selections = False
@@ -20,7 +24,13 @@ class Minify(sublime_plugin.TextCommand):
         threads = []
         for sel in selections:
             selbody = self.view.substr(sel)
-            thread = GoogleClosureCall(sel, selbody, 5)
+            thread = GoogleClosureCall(
+                        sel,
+                        selbody,
+                        timeout=5,
+                        level=settings.get('optimization_level', "WHITESPACE_ONLY"),
+                        rm_new_lines=settings.get('remove_new_lines', False))
+
             threads.append(thread)
             thread.start()
 
@@ -28,7 +38,7 @@ class Minify(sublime_plugin.TextCommand):
         self.handle_threads(edit, threads, selections, offset = 0, i = 0, dir = 1)
 
     def handle_threads(self, edit, threads, selections, offset = 0, i = 0, dir = 1):
-        print "handling threads"
+
         next_threads = []
         for thread in threads:
             if thread.is_alive():
@@ -60,6 +70,7 @@ class Minify(sublime_plugin.TextCommand):
         sublime.status_message('Successfully minified')
 
     def replace(self, edit, thread, selections, offset):
+
         sel = thread.sel
         original = thread.original
         result = thread.result

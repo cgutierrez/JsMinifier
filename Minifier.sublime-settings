@@ -1,0 +1,14 @@
+{
+    // the closure compiler adds new lines every 500 characters
+    // for some proxies that choke with lines longer than that... don't care?
+    // set this setting to true.
+    "remove_new_lines": false,
+
+    // the default optimization level to use for minification
+    "optimization_level": "WHITESPACE_ONLY",
+
+    // the compiler to use for minification.
+    // (this setting is not currently hooked up.
+    // It is added for future support of other minifiers)
+    "compiler": "google_closure"
+}

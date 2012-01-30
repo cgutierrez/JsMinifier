@@ -1,15 +1,19 @@
-import sublime, sublime_plugin
+import sublime
+import sublime_plugin
 import urllib
 import urllib2
 import threading
+import re
 
 class GoogleClosureCall(threading.Thread):
 
-    def __init__(self, sel, string, timeout):
+    def __init__(self, sel, string, timeout, level, rm_new_lines):
         self.sel = sel
         self.original = string
         self.timeout = timeout
         self.result = None
+        self.level = level
+        self.rm_new_lines = rm_new_lines
         threading.Thread.__init__(self)
 
     def run(self):
@@ -17,7 +21,7 @@ class GoogleClosureCall(threading.Thread):
         try:
             data = urllib.urlencode({
                 'js_code': self.original,
-                'compilation_level': "WHITESPACE_ONLY",
+                'compilation_level': self.level,
                 'output_info': "compiled_code" })
 
             ua = 'Sublime Text - Google Closure'
@@ -27,7 +31,7 @@ class GoogleClosureCall(threading.Thread):
             mini_content = file.read().strip()
 
             if len(mini_content) > 0:
-                self.result = mini_content
+                self.result = re.sub("[\n]+", " ", mini_content) if self.rm_new_lines else mini_content
 
             return
         except (urllib2.HTTPError) as (e):
