@@ -1,0 +1,50 @@
+[
+    {
+        "id": "tools",
+        "children":
+        [
+
+            {
+                "id": "JSMin",
+                "caption": "Minify Javascript",
+                "command": "minify"
+            }
+
+        ]
+    },
+    {
+        "id": "preferences",
+        "children":
+        [
+            {
+                "caption": "Package Settings",
+                "id": "package-settings",
+                "children":
+                [
+                    {
+                        "caption": "JSMin",
+                        "children":
+                        [
+                            {
+                                "caption": "JSMin Settings – Default",
+                                "command": "open_file",
+                                "args":
+                                {
+                                    "file": "${packages}/JS Minifier/Minifier.sublime-settings"
+                                }
+                            },
+                            {
+                                "caption": "JSMin Settings – User",
+                                "command": "open_file",
+                                "args":
+                                {
+                                    "file": "${packages}/User/Minifier.sublime-settings"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]
