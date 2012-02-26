@@ -1,7 +1,9 @@
 import sublime
 import sublime_plugin
 
-from GoogleClosureCall import GoogleClosureCall
+from compilers import GoogleClosureCall, UglifyCall
+
+#from GoogleClosureCall import GoogleClosureCall
 
 class Minify(sublime_plugin.TextCommand):
 
@@ -24,7 +26,7 @@ class Minify(sublime_plugin.TextCommand):
         threads = []
         for sel in selections:
             selbody = self.view.substr(sel)
-            thread = GoogleClosureCall(
+            thread = UglifyCall(
                         sel,
                         selbody,
                         timeout=5,
@@ -35,7 +37,7 @@ class Minify(sublime_plugin.TextCommand):
             thread.start()
 
         selections.clear()
-        self.handle_threads(edit, threads, selections, offset = 0, i = 0, dir = 1)
+        #self.handle_threads(edit, threads, selections, offset = 0, i = 0, dir = 1)
 
     def handle_threads(self, edit, threads, selections, offset = 0, i = 0, dir = 1):
 
