@@ -10,5 +10,5 @@
     // the compiler to use for minification.
     // (this setting is not currently hooked up.
     // It is added for future support of other minifiers)
-    "compiler": "google_closure"
+    "compiler": "uglify_js"
 }

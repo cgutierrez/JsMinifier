@@ -1,9 +1,10 @@
+import urllib
 import urllib2
+from basecall import BaseCall
 
-class UglifyCall(BaseCall.BaseCall):
+class UglifyCall(BaseCall):
 
-    def exec_request():
-
+    def exec_request(self):
         data = urllib.urlencode({
             'js_code': self.original,
             'compilation_level': self.level,
@@ -11,9 +12,11 @@ class UglifyCall(BaseCall.BaseCall):
 
         ua = 'Sublime Text - Uglify'
         req = urllib2.Request("http://marijnhaverbeke.nl/uglifyjs", data, headers = { 'User-Agent': ua })
-        file = urllib2.urlopen(req, timeout = self.timeout)
+        file = urllib2.urlopen(req, timeout=self.timeout)
 
         mini_content = file.read().strip()
 
         if len(mini_content) > 0:
-            self.result = re.sub("[\n]+", " ", mini_content) if self.rm_new_lines else mini_content
+            return re.sub("[\n]+", " ", mini_content) if self.rm_new_lines else mini_content
+        else:
+            return None

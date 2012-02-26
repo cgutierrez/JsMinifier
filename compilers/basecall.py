@@ -1,9 +1,7 @@
 import sublime
 import sublime_plugin
-import urllib
 import urllib2
 import threading
-import re
 
 class BaseCall(threading.Thread):
 
@@ -16,16 +14,13 @@ class BaseCall(threading.Thread):
         self.rm_new_lines = rm_new_lines
         threading.Thread.__init__(self)
 
-    def exec_request():
-        return ""
+    def exec_request(self):
+        return
 
     def run(self):
-
         try:
-            return exec_request()
+            self.result = self.exec_request()
         except (urllib2.HTTPError) as (e):
-            err = '%s: HTTP error %s contacting API' % (__name__, str(e.code))
+            sublime.error_message('%s: HTTP error %s contacting API' % (__name__, str(e.code)))
         except (urllib2.URLError) as (e):
-            err = '%s: URL error %s contacting API' % (__name__, str(e.code))
-
-        sublime.error_message(err)
+            sublime.error_message('%s: URL error %s contacting API' % (__name__, str(e.code)))

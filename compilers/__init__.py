@@ -1,3 +1,3 @@
-from .BaseCall import BaseCall
-from .GoogleClosureCall import GoogleClosureCall
-from .UglifyCall import UglifyCall
+from basecall import BaseCall
+from googleclosurecall import GoogleClosureCall
+from uglifycall import UglifyCall

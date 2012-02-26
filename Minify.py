@@ -3,8 +3,6 @@ import sublime_plugin
 
 from compilers import GoogleClosureCall, UglifyCall
 
-#from GoogleClosureCall import GoogleClosureCall
-
 class Minify(sublime_plugin.TextCommand):
 
     def run(self, edit):
@@ -26,7 +24,10 @@ class Minify(sublime_plugin.TextCommand):
         threads = []
         for sel in selections:
             selbody = self.view.substr(sel)
-            thread = UglifyCall(
+
+            CompilerCall = self.get_minifier(settings)
+
+            thread = CompilerCall(
                         sel,
                         selbody,
                         timeout=5,
@@ -37,7 +38,7 @@ class Minify(sublime_plugin.TextCommand):
             thread.start()
 
         selections.clear()
-        #self.handle_threads(edit, threads, selections, offset = 0, i = 0, dir = 1)
+        self.handle_threads(edit, threads, selections, offset = 0, i = 0, dir = 1)
 
     def handle_threads(self, edit, threads, selections, offset = 0, i = 0, dir = 1):
 
@@ -87,3 +88,14 @@ class Minify(sublime_plugin.TextCommand):
             sel = sublime.Region(sel.begin() + offset, sel.end() + offset)
 
         self.view.replace(edit, sel, result)
+
+    def get_minifier(self, settings):
+        compiler = settings.get('compiler', "google_closure")
+        compilers = {
+            'google_closure': GoogleClosureCall,
+            'uglify_js': UglifyCall
+        }
+
+        return compilers[compiler] if compiler in compilers else compilers['google_closure']
+
+
