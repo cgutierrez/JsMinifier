@@ -5,6 +5,7 @@ from basecall import BaseCall
 class UglifyCall(BaseCall):
 
     def exec_request(self):
+
         data = urllib.urlencode({
             'js_code': self.original,
             'compilation_level': self.level,
