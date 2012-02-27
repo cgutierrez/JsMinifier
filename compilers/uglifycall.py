@@ -7,7 +7,7 @@ class UglifyCall(BaseCall):
     def exec_request(self):
 
         data = urllib.urlencode({
-            'js_code': self.original,
+            'js_code': self.original.encode('utf-8'),
             'compilation_level': self.level,
             'output_info': "compiled_code" })
 
