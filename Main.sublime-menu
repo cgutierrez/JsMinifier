@@ -5,7 +5,7 @@
         [
 
             {
-                "id": "JSMin",
+                "id": "Js Minifier",
                 "caption": "Minify Javascript",
                 "command": "minify"
             }
@@ -22,19 +22,19 @@
                 "children":
                 [
                     {
-                        "caption": "JSMin",
+                        "caption": "Js Minifier",
                         "children":
                         [
                             {
-                                "caption": "JSMin Settings – Default",
+                                "caption": "Js Minifier Settings – Default",
                                 "command": "open_file",
                                 "args":
                                 {
-                                    "file": "${packages}/JS Minifier/Minifier.sublime-settings"
+                                    "file": "${packages}/JsMinifier/Minifier.sublime-settings"
                                 }
                             },
                             {
-                                "caption": "JSMin Settings – User",
+                                "caption": "Js Minifier Settings – User",
                                 "command": "open_file",
                                 "args":
                                 {
