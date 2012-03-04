@@ -78,7 +78,10 @@ class Minify(sublime_plugin.TextCommand):
         original = thread.original
         result = thread.result
 
-        if result is None:
+        if thread.error is True:
+            sublime.error_message(result)
+            return
+        elif result is None:
             sublime.error_message("There was an error minifying the Javascript.")
             return
 

@@ -11,6 +11,7 @@ class BaseCall(threading.Thread):
         self.timeout = timeout
         self.result = None
         self.level = level
+        self.error = None
         self.rm_new_lines = rm_new_lines
         threading.Thread.__init__(self)
 
@@ -21,6 +22,8 @@ class BaseCall(threading.Thread):
         try:
             self.result = self.exec_request()
         except (urllib2.HTTPError) as (e):
-            sublime.error_message('%s: HTTP error %s contacting API' % (__name__, str(e.code)))
+            self.error = True
+            self.result = 'Minifier Error: HTTP error %s contacting API' % (str(e.code))
         except (urllib2.URLError) as (e):
-            sublime.error_message('%s: URL error %s contacting API' % (__name__, str(e.code)))
+            self.error = True
+            self.result = 'Minifier Error: ' + str(e.reason)
