@@ -1,5 +1,8 @@
 [
     {
         "keys": ["ctrl+alt+m"], "command": "minify"
+    },
+    {
+        "keys": ["ctrl+alt+shift+m"], "command": "minify_to_file"
     }
 ]
