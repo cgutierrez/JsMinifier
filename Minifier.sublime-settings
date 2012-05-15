@@ -9,5 +9,8 @@
 
     // the compiler to use for minification.
     // Accepted values are: google_closure|uglify_js
-    "compiler": "google_closure"
+    "compiler": "google_closure",
+
+    // when you create a file you want to automatically open it?
+    "open_on_min": true
 }

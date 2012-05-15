@@ -161,4 +161,6 @@ class MinifyToFile(BaseMinifier):
             with open(file_path, 'w+', 0) as min_file:
                 min_file.write(self.output.strip())
             
-            self.window.open_file(file_name)
+            print self.settings.get('open_on_min', True)
+            if (self.settings.get('open_on_min', True) == True):
+                self.window.open_file(file_name)
