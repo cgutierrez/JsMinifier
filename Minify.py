@@ -10,6 +10,7 @@ class BaseMinifier(sublime_plugin.TextCommand):
 
     def __init__(self, view):
         self.view = view
+        self.window = sublime.active_window()
         self.settings = sublime.load_settings("Minifier.sublime-settings")
 
     def run(self, edit):
@@ -150,10 +151,16 @@ class MinifyToFile(BaseMinifier):
             file_parts = path.splitext(current_file)
             min_file_suffix = self.settings.get('min_file_suffix', '.min')
 
+            file_name = file_parts[0] + min_file_suffix + file_parts[1]
+
             file_path = path.join(
                 path.dirname(current_file),
-                file_parts[0] + min_file_suffix + file_parts[1]
+                file_name
             )
-
+            
             with open(file_path, 'w+', 0) as min_file:
                 min_file.write(self.output.strip())
+            
+            print self.settings.get('open_on_min', True)
+            if (self.settings.get('open_on_min', True) == True):
+                self.window.open_file(file_name)
