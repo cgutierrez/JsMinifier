@@ -4,7 +4,9 @@
     // set this setting to true.
     "remove_new_lines": false,
 
-    // the default optimization level to use for minification
+    // the default optimization level to use for minification. Acceptable optios are:
+    // WHITESPACE_ONLY, SIMPLE_OPTIMIZATIONS, ADVANCED_OPTIMIZATIONS
+    // These primiarly apply to the closure compiler. For more info on which to use, go to: https://developers.google.com/closure/compiler/docs/compilation_levels
     "optimization_level": "WHITESPACE_ONLY",
 
     // the compiler to use for minification.
